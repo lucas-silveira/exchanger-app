@@ -60,12 +60,19 @@
     "typescript": "^4.7.4"
   },
   "jest": {
+    "verbose": true,
+    "rootDir": ".",
+    "modulePaths": [
+      "<rootDir>"
+    ],
     "moduleFileExtensions": [
       "js",
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "setupFilesAfterEnv": [
+      "./setupTests.ts"
+    ],
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
