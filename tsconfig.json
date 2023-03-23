@@ -12,10 +12,17 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "paths": {
+      "@shared": ["src/shared"],
+      "@shared/*": ["src/shared/*"],
+      "@application": ["src/application"],
+      "@application/*": ["src/application/*"],
+      "@domain": ["src/domain"],
+      "@domain/*": ["src/domain/*"],
+      "@infra-adapters": ["src/infra-adapters"],
+      "@infra-adapters/*": ["src/infra-adapters/*"],
+      "@ui-adapters": ["src/ui-adapters"],
+      "@ui-adapters/*": ["src/ui-adapters/*"]
+    }
   }
 }
