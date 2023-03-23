@@ -8,6 +8,7 @@ import {
   checkIfIsNotLessThan,
   checkIfIsNumber,
   checkIfIsInteger,
+  checkIfHasOnlyLetters,
 } from '../validator';
 
 Tests.unitScope('Validator', () => {
@@ -187,6 +188,39 @@ Tests.unitScope('Validator', () => {
         DomainException,
       );
       expect(() => checkIfIsInteger(undefined, 'message')).toThrowError(
+        DomainException,
+      );
+    });
+  });
+
+  describe('checkIfHasOnlyLetters', () => {
+    it('Should be able to not throw a DomainException if the value has only letters', () => {
+      expect(() => checkIfHasOnlyLetters('A', 'message')).not.toThrow();
+      expect(() => checkIfHasOnlyLetters('a', 'message')).not.toThrow();
+      expect(() => checkIfHasOnlyLetters('Za', 'message')).not.toThrow();
+      expect(() => checkIfHasOnlyLetters('BR', 'message')).not.toThrow();
+    });
+
+    it('Should be able to throw a DomainException if the value has not only letters', () => {
+      expect(() => checkIfHasOnlyLetters('1', 'message')).toThrowError(
+        DomainException,
+      );
+      expect(() => checkIfHasOnlyLetters(1, 'message')).toThrowError(
+        DomainException,
+      );
+      expect(() => checkIfHasOnlyLetters('a1', 'message')).toThrowError(
+        DomainException,
+      );
+      expect(() => checkIfHasOnlyLetters('A1', 'message')).toThrowError(
+        DomainException,
+      );
+      expect(() => checkIfHasOnlyLetters('*', 'message')).toThrowError(
+        DomainException,
+      );
+      expect(() => checkIfHasOnlyLetters('', 'message')).toThrowError(
+        DomainException,
+      );
+      expect(() => checkIfHasOnlyLetters(undefined, 'message')).toThrowError(
         DomainException,
       );
     });

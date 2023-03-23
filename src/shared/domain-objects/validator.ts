@@ -67,3 +67,12 @@ export const checkIfIsNumber = (aValue: unknown, errMessage: string): void => {
 export const checkIfIsInteger = (aValue: unknown, errMessage: string): void => {
   if (!Number.isInteger(aValue)) throw new DomainException(errMessage);
 };
+
+export const checkIfHasOnlyLetters = (
+  aValue: unknown,
+  errMessage: string,
+): void => {
+  const isNotString = typeof aValue !== 'string';
+  const hasNotOnlyLetters = !/^[a-zA-Z]+$/.test(<string>aValue);
+  if (isNotString || hasNotOnlyLetters) throw new DomainException(errMessage);
+};
