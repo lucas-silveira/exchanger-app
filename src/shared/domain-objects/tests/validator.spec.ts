@@ -4,6 +4,7 @@ import {
   checkIfIsNotEmpty,
   checkIfIsValidEnum,
   checkIfLengthIsNotGreaterThan,
+  checkIfLengthIsNotLessThan,
   checkIfIsNotGreaterThan,
   checkIfIsNotLessThan,
   checkIfIsNumber,
@@ -74,26 +75,36 @@ Tests.unitScope('Validator', () => {
   describe('checkIfLengthIsNotGreaterThan', () => {
     it('Should be able to not throw a DomainException if the value is lower or equal to maximum', () => {
       expect(() =>
-        checkIfLengthIsNotGreaterThan('1', 10, 'message'),
+        checkIfLengthIsNotGreaterThan('a', 10, 'message'),
       ).not.toThrow();
       expect(() =>
-        checkIfLengthIsNotGreaterThan('1', 1, 'message'),
+        checkIfLengthIsNotGreaterThan('a', 1, 'message'),
       ).not.toThrow();
       expect(() =>
-        checkIfLengthIsNotGreaterThan('x', 1, 'message'),
+        checkIfLengthIsNotGreaterThan('', 0, 'message'),
       ).not.toThrow();
     });
 
     it('Should be able to throw a DomainException if the value is greater than maximum', () => {
       expect(() =>
-        checkIfLengthIsNotGreaterThan('10', 1, 'message'),
+        checkIfLengthIsNotGreaterThan('ab', 1, 'message'),
       ).toThrowError(DomainException);
+    });
+  });
+
+  describe('checkIfLengthIsNotLessThan', () => {
+    it('Should be able to not throw a DomainException if the value is greater or equal to minimum', () => {
       expect(() =>
-        checkIfLengthIsNotGreaterThan(10, 1, 'message'),
-      ).toThrowError(DomainException);
-      expect(() =>
-        checkIfLengthIsNotGreaterThan('xx', 1, 'message'),
-      ).toThrowError(DomainException);
+        checkIfLengthIsNotLessThan('ab', 1, 'message'),
+      ).not.toThrow();
+      expect(() => checkIfLengthIsNotLessThan('a', 1, 'message')).not.toThrow();
+      expect(() => checkIfLengthIsNotLessThan('', 0, 'message')).not.toThrow();
+    });
+
+    it('Should be able to throw a DomainException if the value is less than minimum', () => {
+      expect(() => checkIfLengthIsNotLessThan('a', 10, 'message')).toThrowError(
+        DomainException,
+      );
     });
   });
 

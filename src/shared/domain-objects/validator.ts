@@ -38,6 +38,17 @@ export const checkIfLengthIsNotGreaterThan = (
   if (isNotString || isGreaterThanMax) throw new DomainException(errMessage);
 };
 
+export const checkIfLengthIsNotLessThan = (
+  aValue: unknown,
+  min: number,
+  errMessage: string,
+): void => {
+  const isNotString = typeof aValue !== 'string';
+  const isLessThanMin = (<string>aValue).length < min;
+
+  if (isNotString || isLessThanMin) throw new DomainException(errMessage);
+};
+
 export const checkIfIsNotGreaterThan = (
   aValue: unknown,
   max: number,
