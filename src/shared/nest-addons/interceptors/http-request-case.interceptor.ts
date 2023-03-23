@@ -1,7 +1,7 @@
 import * as Nest from '@nestjs/common';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
-import camelcaseKeys from 'camelcase-keys';
+import * as camelcaseKeys from 'camelcase-keys';
 
 @Nest.Injectable()
 export class HttpRequestCamelCaseInterceptor implements Nest.NestInterceptor {
