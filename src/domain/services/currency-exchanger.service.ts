@@ -10,16 +10,16 @@ export class CurrencyExchangerService {
     CurrencyExchangerService.name,
   );
 
-  public exchange(source: Currency, target: Currency, money: Money): Money {
+  public exchange(money: Money, source: Currency, target: Currency): Money {
     try {
       const usdMoney = source.exchangeToUsd(money);
       return target.exchangeFromUsd(usdMoney);
     } catch (err) {
       this.logger.error(
         new ErrorLog(err, `Error while exchanging currencies`, {
+          money,
           source,
           target,
-          money,
         }),
       );
 

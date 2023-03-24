@@ -15,20 +15,20 @@ Tests.serviceScope('CurrencyExchangerService', () => {
 
   describe('exchange', () => {
     it('Should be able to get a Money when exchange is called', () => {
+      const brlMoney = new Money(CurrencyId.BRL, 183.26);
       const brlCurrency = new Currency(CurrencyId.BRL, 'Real', 0.19);
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
-      const brlMoney = new Money(CurrencyId.BRL, 183.26);
       expect(
-        currencyExchangerService.exchange(brlCurrency, arsCurrency, brlMoney),
+        currencyExchangerService.exchange(brlMoney, brlCurrency, arsCurrency),
       ).toBeInstanceOf(Money);
     });
 
     it('Should be able to exchange a BRL Money to ARS Money', () => {
+      const brlMoney = new Money(CurrencyId.BRL, 183.26);
       const brlCurrency = new Currency(CurrencyId.BRL, 'Real', 0.19);
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
-      const brlMoney = new Money(CurrencyId.BRL, 183.26);
       expect(
-        currencyExchangerService.exchange(brlCurrency, arsCurrency, brlMoney),
+        currencyExchangerService.exchange(brlMoney, brlCurrency, arsCurrency),
       ).toEqual({
         currency: CurrencyId.ARS,
         value: 6964,
@@ -40,9 +40,9 @@ Tests.serviceScope('CurrencyExchangerService', () => {
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       expect(() => {
         currencyExchangerService.exchange(
+          new Money(CurrencyId.USD, 183.26),
           brlCurrency,
           arsCurrency,
-          new Money(CurrencyId.USD, 183.26),
         );
       }).toThrowError(DomainException);
     });
@@ -51,9 +51,9 @@ Tests.serviceScope('CurrencyExchangerService', () => {
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       expect(() => {
         currencyExchangerService.exchange(
+          new Money(CurrencyId.BRL, 183.26),
           undefined,
           arsCurrency,
-          new Money(CurrencyId.BRL, 183.26),
         );
       }).toThrowError(Nest.InternalServerErrorException);
     });
