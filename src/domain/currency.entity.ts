@@ -1,5 +1,7 @@
 import { AggregateRoot, Validator } from '@shared/domain-objects';
+import { DomainException } from '@shared/infra-objects';
 import { CurrencyID } from './currency-id.type';
+import { Money } from './money.vo';
 
 export class Currency extends AggregateRoot {
   public isoCode: CurrencyID;
@@ -53,5 +55,25 @@ export class Currency extends AggregateRoot {
       'The incoming usdRate is less than 0',
     );
     this.usdRate = anUsdValue;
+  }
+
+  public exchangeToUsd(source: Money): Money {
+    Validator.checkIfIsNotEmpty(source, 'The source money is empty');
+    if (source.currency !== this.isoCode)
+      throw new DomainException(
+        `The source money has a different currency: ${source.currency}`,
+      );
+
+    const newMoney = source.multiply(this.usdRate);
+    return newMoney.toCurrency('USD');
+  }
+
+  public exchangeFromUsd(source: Money): Money {
+    Validator.checkIfIsNotEmpty(source, 'The source money is empty');
+    if (source.currency !== 'USD')
+      throw new DomainException(`The source money is not an USD currency`);
+
+    const newMoney = source.divide(this.usdRate);
+    return newMoney.toCurrency(this.isoCode);
   }
 }
