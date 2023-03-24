@@ -4,13 +4,13 @@ import * as Tests from '@shared/testing';
 import { CurrencyId } from '@domain/currency-id.enum';
 import { Currency } from '@domain/currency.entity';
 import { Money } from '@domain/money.vo';
-import { CalculatorService } from '../calculator.service';
+import { CurrencyExchangerService } from '../currency-exchanger.service';
 
-Tests.serviceScope('CalculatorService', () => {
-  let calculatorService: CalculatorService;
+Tests.serviceScope('CurrencyExchangerService', () => {
+  let currencyExchangerService: CurrencyExchangerService;
 
   beforeAll(() => {
-    calculatorService = new CalculatorService();
+    currencyExchangerService = new CurrencyExchangerService();
   });
 
   describe('exchange', () => {
@@ -19,7 +19,7 @@ Tests.serviceScope('CalculatorService', () => {
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       const brlMoney = new Money(CurrencyId.BRL, 183.26);
       expect(
-        calculatorService.exchange(brlCurrency, arsCurrency, brlMoney),
+        currencyExchangerService.exchange(brlCurrency, arsCurrency, brlMoney),
       ).toBeInstanceOf(Money);
     });
 
@@ -28,7 +28,7 @@ Tests.serviceScope('CalculatorService', () => {
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       const brlMoney = new Money(CurrencyId.BRL, 183.26);
       expect(
-        calculatorService.exchange(brlCurrency, arsCurrency, brlMoney),
+        currencyExchangerService.exchange(brlCurrency, arsCurrency, brlMoney),
       ).toEqual({
         currency: CurrencyId.ARS,
         value: 6964,
@@ -39,7 +39,7 @@ Tests.serviceScope('CalculatorService', () => {
       const brlCurrency = new Currency(CurrencyId.BRL, 'Real', 0.19);
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       expect(() => {
-        calculatorService.exchange(
+        currencyExchangerService.exchange(
           brlCurrency,
           arsCurrency,
           new Money(CurrencyId.USD, 183.26),
@@ -50,7 +50,7 @@ Tests.serviceScope('CalculatorService', () => {
     it('Should be able to throw a InternalServerErrorException if an unknown error occurs', () => {
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       expect(() => {
-        calculatorService.exchange(
+        currencyExchangerService.exchange(
           undefined,
           arsCurrency,
           new Money(CurrencyId.BRL, 183.26),

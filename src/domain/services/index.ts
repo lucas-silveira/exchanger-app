@@ -1,1 +1,1 @@
-export * from './calculator.service';
+export * from './currency-exchanger.service';
