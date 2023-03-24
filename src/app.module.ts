@@ -19,6 +19,7 @@ export class AppModule {
   public static providers: Nest.Provider[] = [
     NestAddons.AppLogger,
     Domain.CurrencyExchangerService,
+    Domain.MultiCurrencyExchangerService,
   ];
 
   public static register(): Nest.DynamicModule {

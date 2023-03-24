@@ -3,4 +3,5 @@ export enum CurrencyId {
   ARS = 'ARS',
   BRL = 'BRL',
   USD = 'USD',
+  PEN = 'PEN',
 }
