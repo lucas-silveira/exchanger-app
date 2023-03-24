@@ -6,7 +6,7 @@ import { Currency } from '@domain/currency.entity';
 import { Money } from '@domain/money.vo';
 import { CalculatorService } from '../calculator.service';
 
-Tests.unitScope('CalculatorService', () => {
+Tests.serviceScope('CalculatorService', () => {
   let calculatorService: CalculatorService;
 
   beforeAll(() => {
