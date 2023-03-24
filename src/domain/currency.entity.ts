@@ -1,14 +1,14 @@
 import { AggregateRoot, Validator } from '@shared/domain-objects';
 import { DomainException } from '@shared/infra-objects';
-import { CurrencyID } from './currency-id.type';
+import { CurrencyId } from './currency-id.enum';
 import { Money } from './money.vo';
 
 export class Currency extends AggregateRoot {
-  public isoCode: CurrencyID;
+  public isoCode: CurrencyId;
   public name: string;
   public usdRate: number;
 
-  constructor(isoCode: CurrencyID, name: string, usdRate: number) {
+  constructor(isoCode: CurrencyId, name: string, usdRate: number) {
     super(undefined);
     this.setIsoCode(isoCode);
     this.setName(name);
@@ -19,23 +19,14 @@ export class Currency extends AggregateRoot {
     return this.isoCode === aCurrency.isoCode;
   }
 
-  private setIsoCode(anIsoCode: CurrencyID): void {
+  private setIsoCode(anIsoCode: CurrencyId): void {
     Validator.checkIfIsNotEmpty(anIsoCode, 'The incoming isoCode is empty');
-    Validator.checkIfHasOnlyLetters(
+    Validator.checkIfIsValidEnum(
+      CurrencyId,
       anIsoCode,
-      'The incoming isoCode is not a valid ISO format.',
+      'The incoming isoCode is not a valid CurrencyId.',
     );
-    Validator.checkIfLengthIsNotGreaterThan(
-      anIsoCode,
-      3,
-      'The incoming isoCode is not a valid ISO format.',
-    );
-    Validator.checkIfLengthIsNotLessThan(
-      anIsoCode,
-      3,
-      'The incoming isoCode is not a valid ISO format.',
-    );
-    this.isoCode = anIsoCode.toUpperCase();
+    this.isoCode = anIsoCode;
   }
 
   private setName(aName: string): void {
@@ -65,12 +56,12 @@ export class Currency extends AggregateRoot {
       );
 
     const newMoney = source.multiply(this.usdRate);
-    return newMoney.toCurrency('USD');
+    return newMoney.toCurrency(CurrencyId.USD);
   }
 
   public exchangeFromUsd(source: Money): Money {
     Validator.checkIfIsNotEmpty(source, 'The source money is empty');
-    if (source.currency !== 'USD')
+    if (source.currency !== CurrencyId.USD)
       throw new DomainException(`The source money is not an USD currency`);
 
     const newMoney = source.divide(this.usdRate);

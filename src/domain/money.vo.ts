@@ -1,35 +1,26 @@
-import * as Utils from '@shared/utils';
 import { Validator, ValueObject } from '@shared/domain-objects';
 import { DomainException } from '@shared/infra-objects';
-import { CurrencyID } from './currency-id.type';
+import * as Utils from '@shared/utils';
+import { CurrencyId } from './currency-id.enum';
 
 export class Money extends ValueObject {
-  public readonly currency: CurrencyID;
+  public readonly currency: CurrencyId;
   public readonly value: number;
 
-  constructor(currency: CurrencyID, value: number) {
+  constructor(currency: CurrencyId, value: number) {
     super();
     this.setCurrency(currency);
     this.setValue(value);
   }
 
-  private setCurrency(aCurrency: CurrencyID): void {
+  private setCurrency(aCurrency: CurrencyId): void {
     Validator.checkIfIsNotEmpty(aCurrency, 'The incoming currency is empty');
-    Validator.checkIfHasOnlyLetters(
+    Validator.checkIfIsValidEnum(
+      CurrencyId,
       aCurrency,
-      'The incoming currency is not a valid ISO format.',
+      'The incoming currency is not a valid CurrencyId.',
     );
-    Validator.checkIfLengthIsNotGreaterThan(
-      aCurrency,
-      3,
-      'The incoming currency is not a valid ISO format.',
-    );
-    Validator.checkIfLengthIsNotLessThan(
-      aCurrency,
-      3,
-      'The incoming currency is not a valid ISO format.',
-    );
-    super.setReadOnlyProperty('currency', aCurrency.toUpperCase());
+    super.setReadOnlyProperty('currency', aCurrency);
   }
 
   private setValue(aValue: number): void {
@@ -50,7 +41,7 @@ export class Money extends ValueObject {
     return `${this.currency}$${this.value}`;
   }
 
-  public toCurrency(aCurrency: CurrencyID): Money {
+  public toCurrency(aCurrency: CurrencyId): Money {
     return new Money(aCurrency, this.value);
   }
 
