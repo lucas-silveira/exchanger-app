@@ -9,7 +9,7 @@
   ],
   "testRegex": ".e2e-spec.ts$",
   "transform": {
-    "^.+\\.(t|j)s$": "ts-jest"
+    "^.+\\.(t|j)s$": "esbuild-jest"
   },
   "testEnvironment": "node",
   "moduleNameMapper": {
