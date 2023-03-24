@@ -1,6 +1,6 @@
 import * as Nest from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
 import * as NestAddons from '@shared/nest-addons';
 import { AppModule } from './app.module';
 
