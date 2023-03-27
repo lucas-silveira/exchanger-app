@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import * as path from 'path';
 import * as NestAddons from '@shared/nest-addons';
 import * as Domain from '@domain';
+import * as InfraAdapters from '@infra-adapters';
 import { makeConfigAndValidate } from './config';
 
 export class AppModule {
@@ -20,6 +21,10 @@ export class AppModule {
     NestAddons.AppLogger,
     Domain.CurrencyExchangerService,
     Domain.MultiCurrencyExchangerService,
+    {
+      provide: 'CurrencyExchangerService',
+      useClass: InfraAdapters.LocalCurrencyExchangerServiceAdapter,
+    },
   ];
 
   public static register(): Nest.DynamicModule {
