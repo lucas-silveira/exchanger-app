@@ -21,15 +21,13 @@ export class CurrencyExchangerServiceLocalAdapter
     private readonly exchangeMultiCurrencyService: ExchangeMultiCurrencyService,
   ) {}
 
-  public exchange(
+  public async exchange(
     money: Money,
     source: Currency,
     targets: Currency[],
   ): Promise<Money[]> {
     try {
-      return Promise.resolve(
-        this.exchangeMultiCurrencyService.exchange(money, source, targets),
-      );
+      return this.exchangeMultiCurrencyService.exchange(money, source, targets);
     } catch (err) {
       const targetsId = targets.map((tgt) => tgt.isoCode);
       this.logger.error(
