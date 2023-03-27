@@ -1,2 +1,2 @@
-export * from './currencies-repository.interface';
-export * from './currency-exchanger-service.interface';
+export * from './currencies-repository.port';
+export * from './currency-exchanger-service.port';
