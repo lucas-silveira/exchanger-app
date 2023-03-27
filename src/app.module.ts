@@ -23,7 +23,7 @@ export class AppModule {
     Domain.ExchangeMultiCurrencyService,
     {
       provide: 'CurrencyExchangerService',
-      useClass: InfraAdapters.CurrencyExchangerServiceLocalAdapter,
+      useClass: InfraAdapters.CurrencyExchangerLocalService,
     },
   ];
 
