@@ -8,13 +8,11 @@ import { CurrencyExchangerService } from '../currency-exchanger.service';
 import { MultiCurrencyExchangerService } from '../multi-currency-exchanger.service';
 
 Tests.serviceScope('MultiCurrencyExchangerService', () => {
-  let currencyExchangerService: CurrencyExchangerService;
   let multiCurrencyExchangerService: MultiCurrencyExchangerService;
 
   beforeAll(() => {
-    currencyExchangerService = new CurrencyExchangerService();
     multiCurrencyExchangerService = new MultiCurrencyExchangerService(
-      currencyExchangerService,
+      new CurrencyExchangerService(),
     );
   });
 
