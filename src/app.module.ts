@@ -20,7 +20,7 @@ export class AppModule {
   public static providers: Nest.Provider[] = [
     NestAddons.AppLogger,
     Domain.ExchangeCurrencyService,
-    Domain.MultiCurrencyExchangerService,
+    Domain.ExchangeMultiCurrencyService,
     {
       provide: 'CurrencyExchangerService',
       useClass: InfraAdapters.LocalCurrencyExchangerServiceAdapter,

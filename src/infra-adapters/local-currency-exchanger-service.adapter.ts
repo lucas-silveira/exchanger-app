@@ -1,7 +1,7 @@
 import * as Nest from '@nestjs/common';
 import * as NestAddons from '@shared/nest-addons';
 import { ErrorLog } from '@shared/telemetry';
-import { Money, Currency, MultiCurrencyExchangerService } from '@domain';
+import { Money, Currency, ExchangeMultiCurrencyService } from '@domain';
 import { ICurrencyExchangerService } from '@application/ports';
 
 /*
@@ -18,7 +18,7 @@ export class LocalCurrencyExchangerServiceAdapter
   );
 
   constructor(
-    private readonly multiCurrencyExchangerService: MultiCurrencyExchangerService,
+    private readonly exchangeMultiCurrencyService: ExchangeMultiCurrencyService,
   ) {}
 
   public exchange(
@@ -28,7 +28,7 @@ export class LocalCurrencyExchangerServiceAdapter
   ): Promise<Money[]> {
     try {
       return Promise.resolve(
-        this.multiCurrencyExchangerService.exchange(money, source, targets),
+        this.exchangeMultiCurrencyService.exchange(money, source, targets),
       );
     } catch (err) {
       const targetsId = targets.map((tgt) => tgt.isoCode);

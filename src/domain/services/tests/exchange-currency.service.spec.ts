@@ -7,10 +7,10 @@ import { Money } from '@domain/money.vo';
 import { ExchangeCurrencyService } from '../exchange-currency.service';
 
 Tests.serviceScope('ExchangeCurrencyService', () => {
-  let currencyExchangerService: ExchangeCurrencyService;
+  let exchangeCurrencyService: ExchangeCurrencyService;
 
   beforeAll(() => {
-    currencyExchangerService = new ExchangeCurrencyService();
+    exchangeCurrencyService = new ExchangeCurrencyService();
   });
 
   describe('exchange', () => {
@@ -19,7 +19,7 @@ Tests.serviceScope('ExchangeCurrencyService', () => {
       const brlCurrency = new Currency(CurrencyId.BRL, 'Real', 0.19);
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       expect(
-        currencyExchangerService.exchange(brlMoney, brlCurrency, arsCurrency),
+        exchangeCurrencyService.exchange(brlMoney, brlCurrency, arsCurrency),
       ).toBeInstanceOf(Money);
     });
 
@@ -28,7 +28,7 @@ Tests.serviceScope('ExchangeCurrencyService', () => {
       const brlCurrency = new Currency(CurrencyId.BRL, 'Real', 0.19);
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       expect(
-        currencyExchangerService.exchange(brlMoney, brlCurrency, arsCurrency),
+        exchangeCurrencyService.exchange(brlMoney, brlCurrency, arsCurrency),
       ).toEqual({
         currency: CurrencyId.ARS,
         value: 6964,
@@ -39,7 +39,7 @@ Tests.serviceScope('ExchangeCurrencyService', () => {
       const brlCurrency = new Currency(CurrencyId.BRL, 'Real', 0.19);
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       expect(() => {
-        currencyExchangerService.exchange(
+        exchangeCurrencyService.exchange(
           new Money(CurrencyId.USD, 183.26),
           brlCurrency,
           arsCurrency,
@@ -50,7 +50,7 @@ Tests.serviceScope('ExchangeCurrencyService', () => {
     it('Should be able to throw a InternalServerErrorException if an unknown error occurs', () => {
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       expect(() => {
-        currencyExchangerService.exchange(
+        exchangeCurrencyService.exchange(
           new Money(CurrencyId.BRL, 183.26),
           undefined,
           arsCurrency,

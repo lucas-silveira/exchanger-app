@@ -6,13 +6,13 @@ import { Money } from '@domain/money.vo';
 import { ExchangeCurrencyService } from './exchange-currency.service';
 
 @Nest.Injectable()
-export class MultiCurrencyExchangerService {
+export class ExchangeMultiCurrencyService {
   private readonly logger = new NestAddons.AppLogger(
-    MultiCurrencyExchangerService.name,
+    ExchangeMultiCurrencyService.name,
   );
 
   constructor(
-    private readonly currencyExchangerService: ExchangeCurrencyService,
+    private readonly exchangeCurrencyService: ExchangeCurrencyService,
   ) {}
 
   public exchange(
@@ -22,7 +22,7 @@ export class MultiCurrencyExchangerService {
   ): Money[] {
     try {
       return targets.map((tgt) =>
-        this.currencyExchangerService.exchange(money, source, tgt),
+        this.exchangeCurrencyService.exchange(money, source, tgt),
       );
     } catch (err) {
       const targetsId = targets.map((tgt) => tgt.isoCode);

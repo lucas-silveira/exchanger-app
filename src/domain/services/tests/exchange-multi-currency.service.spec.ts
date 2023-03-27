@@ -5,13 +5,13 @@ import { CurrencyId } from '@domain/currency-id.enum';
 import { Currency } from '@domain/currency.entity';
 import { Money } from '@domain/money.vo';
 import { ExchangeCurrencyService } from '../exchange-currency.service';
-import { MultiCurrencyExchangerService } from '../multi-currency-exchanger.service';
+import { ExchangeMultiCurrencyService } from '../exchange-multi-currency.service';
 
-Tests.serviceScope('MultiCurrencyExchangerService', () => {
-  let multiCurrencyExchangerService: MultiCurrencyExchangerService;
+Tests.serviceScope('ExchangeMultiCurrencyService', () => {
+  let exchangeMultiCurrencyService: ExchangeMultiCurrencyService;
 
   beforeAll(() => {
-    multiCurrencyExchangerService = new MultiCurrencyExchangerService(
+    exchangeMultiCurrencyService = new ExchangeMultiCurrencyService(
       new ExchangeCurrencyService(),
     );
   });
@@ -22,7 +22,7 @@ Tests.serviceScope('MultiCurrencyExchangerService', () => {
       const brlCurrency = new Currency(CurrencyId.BRL, 'Real', 0.19);
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       const penCurrency = new Currency(CurrencyId.PEN, 'Sol', 0.27);
-      const moneyList = multiCurrencyExchangerService.exchange(
+      const moneyList = exchangeMultiCurrencyService.exchange(
         brlMoney,
         brlCurrency,
         [arsCurrency, penCurrency],
@@ -37,7 +37,7 @@ Tests.serviceScope('MultiCurrencyExchangerService', () => {
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       const penCurrency = new Currency(CurrencyId.PEN, 'Sol', 0.27);
       expect(
-        multiCurrencyExchangerService.exchange(brlMoney, brlCurrency, [
+        exchangeMultiCurrencyService.exchange(brlMoney, brlCurrency, [
           arsCurrency,
           penCurrency,
         ]),
@@ -58,7 +58,7 @@ Tests.serviceScope('MultiCurrencyExchangerService', () => {
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       const penCurrency = new Currency(CurrencyId.PEN, 'Sol', 0.27);
       expect(() => {
-        multiCurrencyExchangerService.exchange(
+        exchangeMultiCurrencyService.exchange(
           new Money(CurrencyId.USD, 183.26),
           brlCurrency,
           [arsCurrency, penCurrency],
@@ -70,7 +70,7 @@ Tests.serviceScope('MultiCurrencyExchangerService', () => {
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       const penCurrency = new Currency(CurrencyId.PEN, 'Sol', 0.27);
       expect(() => {
-        multiCurrencyExchangerService.exchange(
+        exchangeMultiCurrencyService.exchange(
           new Money(CurrencyId.BRL, 183.26),
           undefined,
           [arsCurrency, penCurrency],

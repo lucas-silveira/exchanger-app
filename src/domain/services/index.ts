@@ -1,2 +1,2 @@
 export * from './exchange-currency.service';
-export * from './multi-currency-exchanger.service';
+export * from './exchange-multi-currency.service';

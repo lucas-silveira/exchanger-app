@@ -6,7 +6,7 @@ import {
   Currency,
   Money,
   ExchangeCurrencyService,
-  MultiCurrencyExchangerService,
+  ExchangeMultiCurrencyService,
 } from '@domain';
 import { LocalCurrencyExchangerServiceAdapter } from '../local-currency-exchanger-service.adapter';
 
@@ -16,7 +16,7 @@ Tests.serviceScope('LocalCurrencyExchangerServiceAdapter', () => {
   beforeAll(() => {
     localCurrencyExchangerServiceAdapter =
       new LocalCurrencyExchangerServiceAdapter(
-        new MultiCurrencyExchangerService(new ExchangeCurrencyService()),
+        new ExchangeMultiCurrencyService(new ExchangeCurrencyService()),
       );
   });
 
