@@ -4,13 +4,13 @@ import * as Tests from '@shared/testing';
 import { CurrencyId } from '@domain/currency-id.enum';
 import { Currency } from '@domain/currency.entity';
 import { Money } from '@domain/money.vo';
-import { CurrencyExchangerService } from '../currency-exchanger.service';
+import { ExchangeCurrencyService } from '../exchange-currency.service';
 
-Tests.serviceScope('CurrencyExchangerService', () => {
-  let currencyExchangerService: CurrencyExchangerService;
+Tests.serviceScope('ExchangeCurrencyService', () => {
+  let currencyExchangerService: ExchangeCurrencyService;
 
   beforeAll(() => {
-    currencyExchangerService = new CurrencyExchangerService();
+    currencyExchangerService = new ExchangeCurrencyService();
   });
 
   describe('exchange', () => {

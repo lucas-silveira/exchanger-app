@@ -4,7 +4,7 @@ import * as Tests from '@shared/testing';
 import { CurrencyId } from '@domain/currency-id.enum';
 import { Currency } from '@domain/currency.entity';
 import { Money } from '@domain/money.vo';
-import { CurrencyExchangerService } from '../currency-exchanger.service';
+import { ExchangeCurrencyService } from '../exchange-currency.service';
 import { MultiCurrencyExchangerService } from '../multi-currency-exchanger.service';
 
 Tests.serviceScope('MultiCurrencyExchangerService', () => {
@@ -12,7 +12,7 @@ Tests.serviceScope('MultiCurrencyExchangerService', () => {
 
   beforeAll(() => {
     multiCurrencyExchangerService = new MultiCurrencyExchangerService(
-      new CurrencyExchangerService(),
+      new ExchangeCurrencyService(),
     );
   });
 

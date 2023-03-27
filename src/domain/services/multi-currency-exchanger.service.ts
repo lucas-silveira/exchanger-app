@@ -3,7 +3,7 @@ import * as NestAddons from '@shared/nest-addons';
 import { ErrorLog } from '@shared/telemetry';
 import { Currency } from '@domain/currency.entity';
 import { Money } from '@domain/money.vo';
-import { CurrencyExchangerService } from './currency-exchanger.service';
+import { ExchangeCurrencyService } from './exchange-currency.service';
 
 @Nest.Injectable()
 export class MultiCurrencyExchangerService {
@@ -12,7 +12,7 @@ export class MultiCurrencyExchangerService {
   );
 
   constructor(
-    private readonly currencyExchangerService: CurrencyExchangerService,
+    private readonly currencyExchangerService: ExchangeCurrencyService,
   ) {}
 
   public exchange(

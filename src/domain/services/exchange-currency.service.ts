@@ -5,9 +5,9 @@ import { Currency } from '@domain/currency.entity';
 import { Money } from '@domain/money.vo';
 
 @Nest.Injectable()
-export class CurrencyExchangerService {
+export class ExchangeCurrencyService {
   private readonly logger = new NestAddons.AppLogger(
-    CurrencyExchangerService.name,
+    ExchangeCurrencyService.name,
   );
 
   public exchange(money: Money, source: Currency, target: Currency): Money {
