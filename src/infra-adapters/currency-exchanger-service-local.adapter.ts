@@ -10,11 +10,11 @@ import { ICurrencyExchangerService } from '@application/ports';
 */
 
 @Nest.Injectable()
-export class LocalCurrencyExchangerServiceAdapter
+export class CurrencyExchangerServiceLocalAdapter
   implements ICurrencyExchangerService
 {
   private readonly logger = new NestAddons.AppLogger(
-    LocalCurrencyExchangerServiceAdapter.name,
+    CurrencyExchangerServiceLocalAdapter.name,
   );
 
   constructor(

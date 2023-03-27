@@ -8,14 +8,14 @@ import {
   ExchangeCurrencyService,
   ExchangeMultiCurrencyService,
 } from '@domain';
-import { LocalCurrencyExchangerServiceAdapter } from '../local-currency-exchanger-service.adapter';
+import { CurrencyExchangerServiceLocalAdapter } from '../currency-exchanger-service-local.adapter';
 
-Tests.serviceScope('LocalCurrencyExchangerServiceAdapter', () => {
-  let localCurrencyExchangerServiceAdapter: LocalCurrencyExchangerServiceAdapter;
+Tests.serviceScope('CurrencyExchangerServiceLocalAdapter', () => {
+  let currencyExchangerServiceLocalAdapter: CurrencyExchangerServiceLocalAdapter;
 
   beforeAll(() => {
-    localCurrencyExchangerServiceAdapter =
-      new LocalCurrencyExchangerServiceAdapter(
+    currencyExchangerServiceLocalAdapter =
+      new CurrencyExchangerServiceLocalAdapter(
         new ExchangeMultiCurrencyService(new ExchangeCurrencyService()),
       );
   });
@@ -26,7 +26,7 @@ Tests.serviceScope('LocalCurrencyExchangerServiceAdapter', () => {
       const brlCurrency = new Currency(CurrencyId.BRL, 'Real', 0.19);
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       const penCurrency = new Currency(CurrencyId.PEN, 'Sol', 0.27);
-      const moneyList = await localCurrencyExchangerServiceAdapter.exchange(
+      const moneyList = await currencyExchangerServiceLocalAdapter.exchange(
         brlMoney,
         brlCurrency,
         [arsCurrency, penCurrency],
@@ -41,7 +41,7 @@ Tests.serviceScope('LocalCurrencyExchangerServiceAdapter', () => {
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       const penCurrency = new Currency(CurrencyId.PEN, 'Sol', 0.27);
       await expect(
-        localCurrencyExchangerServiceAdapter.exchange(brlMoney, brlCurrency, [
+        currencyExchangerServiceLocalAdapter.exchange(brlMoney, brlCurrency, [
           arsCurrency,
           penCurrency,
         ]),
@@ -62,7 +62,7 @@ Tests.serviceScope('LocalCurrencyExchangerServiceAdapter', () => {
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       const penCurrency = new Currency(CurrencyId.PEN, 'Sol', 0.27);
       expect(() =>
-        localCurrencyExchangerServiceAdapter.exchange(
+        currencyExchangerServiceLocalAdapter.exchange(
           new Money(CurrencyId.USD, 183.26),
           brlCurrency,
           [arsCurrency, penCurrency],
@@ -74,7 +74,7 @@ Tests.serviceScope('LocalCurrencyExchangerServiceAdapter', () => {
       const arsCurrency = new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005);
       const penCurrency = new Currency(CurrencyId.PEN, 'Sol', 0.27);
       expect(() =>
-        localCurrencyExchangerServiceAdapter.exchange(
+        currencyExchangerServiceLocalAdapter.exchange(
           new Money(CurrencyId.BRL, 183.26),
           undefined,
           [arsCurrency, penCurrency],

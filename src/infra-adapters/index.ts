@@ -1,1 +1,1 @@
-export * from './local-currency-exchanger-service.adapter';
+export * from './currency-exchanger-service-local.adapter';
