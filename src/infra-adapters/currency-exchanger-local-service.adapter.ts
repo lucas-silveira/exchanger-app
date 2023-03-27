@@ -2,7 +2,7 @@ import * as Nest from '@nestjs/common';
 import * as NestAddons from '@shared/nest-addons';
 import { ErrorLog } from '@shared/telemetry';
 import { Money, Currency, ExchangeMultiCurrencyService } from '@domain';
-import { ICurrencyExchangerService } from '@application/ports';
+import { Ports } from '@application';
 
 /*
   This adapter allows us to decouple the Application layer from Domain layer
@@ -11,7 +11,7 @@ import { ICurrencyExchangerService } from '@application/ports';
 
 @Nest.Injectable()
 export class CurrencyExchangerLocalService
-  implements ICurrencyExchangerService
+  implements Ports.ICurrencyExchangerService
 {
   private readonly logger = new NestAddons.AppLogger(
     CurrencyExchangerLocalService.name,
