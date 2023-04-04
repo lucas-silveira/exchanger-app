@@ -9,30 +9,27 @@ Tests.serviceScope('CurrenciesMemoryRepository', () => {
     currenciesMemRepo = new CurrenciesMemoryRepository();
   });
 
-  it('Should be able to save a Currency', async () => {
+  it('Should be able to save a new Currency', async () => {
     await expect(
-      currenciesMemRepo.save(new Currency(CurrencyId.BRL, 'Real', 0.5)),
+      currenciesMemRepo.save(
+        new Currency(CurrencyId.CAD, 'Dólar Canadense', 1.34),
+      ),
     ).resolves.not.toThrow();
   });
 
   it('Should be able to get a list of Currency when findAll is called', async () => {
-    await currenciesMemRepo.save(new Currency(CurrencyId.BRL, 'Real', 0.19));
-    await currenciesMemRepo.save(
-      new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005),
-    );
-    await currenciesMemRepo.save(new Currency(CurrencyId.USD, 'Dólar', 1));
     const currenciesList = await currenciesMemRepo.findAll();
     expect(currenciesList).toBeInstanceOf(Array);
     expect(currenciesList[0]).toBeInstanceOf(Currency);
   });
 
   it('Should be able to find all Currencies saved', async () => {
-    await currenciesMemRepo.save(new Currency(CurrencyId.BRL, 'Real', 0.19));
-    await currenciesMemRepo.save(
-      new Currency(CurrencyId.ARS, 'Peso Argentino', 0.005),
-    );
-    await currenciesMemRepo.save(new Currency(CurrencyId.USD, 'Dólar', 1));
     await expect(currenciesMemRepo.findAll()).resolves.toEqual([
+      {
+        isoCode: 'USD',
+        name: 'Dólar',
+        usdRate: 1,
+      },
       {
         isoCode: 'BRL',
         name: 'Real',
@@ -44,22 +41,26 @@ Tests.serviceScope('CurrenciesMemoryRepository', () => {
         usdRate: 0.005,
       },
       {
-        isoCode: 'USD',
-        name: 'Dólar',
-        usdRate: 1,
+        isoCode: 'PEN',
+        name: 'Sol',
+        usdRate: 0.27,
       },
     ]);
   });
 
   it('Should be able to save a Currency twice', async () => {
-    const brlCurrency = new Currency(CurrencyId.BRL, 'Real', 0.5);
-    await currenciesMemRepo.save(brlCurrency);
-    let [savedBRLCurrency] = await currenciesMemRepo.findAll();
-    expect(savedBRLCurrency).toBe(brlCurrency);
+    const cadCurrency = new Currency(CurrencyId.CAD, 'Dólar Canadense', 1.34);
+    await currenciesMemRepo.save(cadCurrency);
+    let savedCADCurrency = (await currenciesMemRepo.findAll()).find((curr) =>
+      curr.isEqualTo(cadCurrency),
+    );
+    expect(savedCADCurrency).toBe(cadCurrency);
 
-    brlCurrency.name = 'Real 2';
-    await currenciesMemRepo.save(brlCurrency);
-    [savedBRLCurrency] = await currenciesMemRepo.findAll();
-    expect(savedBRLCurrency).toBe(brlCurrency);
+    cadCurrency.name = 'Dólar Canadense 2';
+    await currenciesMemRepo.save(cadCurrency);
+    savedCADCurrency = (await currenciesMemRepo.findAll()).find((curr) =>
+      curr.isEqualTo(cadCurrency),
+    );
+    expect(savedCADCurrency).toBe(cadCurrency);
   });
 });
