@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import * as path from 'path';
 import * as NestAddons from '@shared/nest-addons';
 import * as Domain from '@domain';
+import * as App from '@application';
 import * as InfraAdapters from '@infra-adapters';
 import { makeConfigAndValidate } from './config';
 
@@ -19,9 +20,10 @@ export class AppModule {
 
   public static providers: Nest.Provider[] = [
     NestAddons.AppLogger,
+    ...InfraAdapters.providers,
     Domain.ExchangeCurrencyService,
     Domain.ExchangeMultiCurrencyService,
-    ...InfraAdapters.providers,
+    App.Services.AppCurrencyService,
   ];
 
   public static register(): Nest.DynamicModule {
