@@ -19,7 +19,7 @@
     "test": "cross-env NODE_ENV=test jest --passWithNoTests",
     "test:unit": "cross-env NODE_ENV=test TEST_SCOPE=unit jest --passWithNoTests",
     "test:service": "cross-env NODE_ENV=test TEST_SCOPE=service jest --passWithNoTests",
-    "test:e2e": "cross-env NODE_ENV=test TEST_SCOPE=e2e jest --passWithNoTests",
+    "test:e2e": "cross-env NODE_ENV=test TEST_SCOPE=e2e jest --config ./jest-e2e.config.json --passWithNoTests",
     "test:io": "cross-env NODE_ENV=test TEST_SCOPE=io jest --passWithNoTests",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
     "test:cov": "cross-env NODE_ENV=test jest --coverage",
@@ -65,41 +65,5 @@
     "ts-node": "^10.0.0",
     "tsconfig-paths": "4.1.1",
     "typescript": "^4.7.4"
-  },
-  "jest": {
-    "verbose": true,
-    "rootDir": ".",
-    "modulePaths": [
-      "<rootDir>"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "setupFilesAfterEnv": [
-      "./setupTests.ts"
-    ],
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "esbuild-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "@shared/(.*)": "<rootDir>/src/shared/$1",
-      "@shared": "<rootDir>/src/shared",
-      "@application/(.*)": "<rootDir>/src/application/$1",
-      "@application": "<rootDir>/src/application",
-      "@domain/(.*)": "<rootDir>/src/domain/$1",
-      "@domain": "<rootDir>/src/domain",
-      "@infra-adapters/(.*)": "<rootDir>/src/infra-adapters/$1",
-      "@infra-adapters": "<rootDir>/src/infra-adapters",
-      "@ui-adapters/(.*)": "<rootDir>/src/ui-adapters/$1",
-      "@ui-adapters": "<rootDir>/src/ui-adapters"
-    }
   }
 }
