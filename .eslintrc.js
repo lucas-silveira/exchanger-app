@@ -35,6 +35,7 @@ module.exports = {
               '/^@application/',
               '/^@infra-adapters/',
               '/^@ui-adapters/',
+              '/^src/',
               ['parent', 'sibling', 'index'],
           ],
           alphabetize: { order: 'asc', ignoreCase: true },
