@@ -9,10 +9,6 @@ async function bootstrap() {
   const config = app.get<ConfigService>(ConfigService);
   app.enableCors();
   app.useLogger(app.get(NestAddons.AppLogger));
-  app.useGlobalInterceptors(
-    new NestAddons.Interceptors.HttpRequestCamelCaseInterceptor(),
-    new NestAddons.Interceptors.HttpResponseSnakeCaseInterceptor(),
-  );
   app.useGlobalPipes(
     new Nest.ValidationPipe({
       whitelist: true,
