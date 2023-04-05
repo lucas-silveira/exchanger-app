@@ -1,7 +1,7 @@
 import * as Nest from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import snakecaseKeys from 'snakecase-keys';
+import * as snakecaseKeys from 'snakecase-keys';
 
 @Nest.Injectable()
 export class HttpResponseSnakeCaseInterceptor implements Nest.NestInterceptor {
