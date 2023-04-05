@@ -5,6 +5,7 @@ import * as NestAddons from '@shared/nest-addons';
 import * as Domain from '@domain';
 import * as App from '@application';
 import * as InfraAdapters from '@infra-adapters';
+import * as UIAdapters from '@ui-adapters';
 import { makeConfigAndValidate } from './config';
 
 export class AppModule {
@@ -16,7 +17,9 @@ export class AppModule {
     }),
   ];
 
-  public static controllers: Nest.Type[] = [];
+  public static controllers: Nest.Type[] = [
+    UIAdapters.CurrenciesRESTfulController,
+  ];
 
   public static providers: Nest.Provider[] = [
     NestAddons.AppLogger,
