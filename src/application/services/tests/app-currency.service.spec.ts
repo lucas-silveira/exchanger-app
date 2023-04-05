@@ -1,7 +1,7 @@
 import * as Nest from '@nestjs/common';
 import * as Tests from '@shared/testing';
 import { Currency, CurrencyId, Money } from '@domain';
-import * as Ports from '@application/ports';
+import { DTOs, Ports } from '@application';
 import { AppCurrencyService } from '../app-currency.service';
 
 Tests.serviceScope('AppCurrencyService', () => {
@@ -23,7 +23,7 @@ Tests.serviceScope('AppCurrencyService', () => {
     );
   });
 
-  it('Should be able to get a list of Money when exchange is called', async () => {
+  it('Should be able to get a list of ResponseMoneyDto when exchange is called', async () => {
     jest
       .spyOn(currenciesRepo, 'findAll')
       .mockResolvedValueOnce([
@@ -44,7 +44,7 @@ Tests.serviceScope('AppCurrencyService', () => {
 
     const moneyList = await appCurrencyService.exchange(dto);
     expect(moneyList).toBeInstanceOf(Array);
-    expect(moneyList[0]).toBeInstanceOf(Money);
+    expect(moneyList[0]).toBeInstanceOf(DTOs.ResponseMoneyDto);
   });
 
   it('Should be able to exchange a BRL Money to multiple currencies Money', async () => {

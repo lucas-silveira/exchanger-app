@@ -23,11 +23,13 @@ export class AppCurrencyService {
       const source = this.getSourceCurrency(allCurrencies, dto.source);
       const targets = this.getTargetCurrencies(allCurrencies, source);
 
-      return await this.currencyExchangerService.exchange(
+      const moneyList = await this.currencyExchangerService.exchange(
         money,
         source,
         targets,
       );
+
+      return this.makeMoneyDtoList(moneyList);
     } catch (err) {
       this.logger.error(
         new ErrorLog(err, `Error while exchanging currencies`, {}),
@@ -60,5 +62,9 @@ export class AppCurrencyService {
     source: Currency,
   ): Currency[] {
     return currencies.filter((curr) => !curr.isEqualTo(source));
+  }
+
+  private makeMoneyDtoList(moneyList: Money[]): DTOs.ResponseMoneyDto[] {
+    return moneyList.map((m) => new DTOs.ResponseMoneyDto(m.currency, m.value));
   }
 }
