@@ -19,11 +19,11 @@
     "test": "cross-env NODE_ENV=test jest --passWithNoTests",
     "test:unit": "cross-env NODE_ENV=test TEST_SCOPE=unit jest --passWithNoTests",
     "test:service": "cross-env NODE_ENV=test TEST_SCOPE=service jest --passWithNoTests",
+    "test:e2e": "cross-env NODE_ENV=test TEST_SCOPE=e2e jest --passWithNoTests",
     "test:io": "cross-env NODE_ENV=test TEST_SCOPE=io jest --passWithNoTests",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
     "test:cov": "cross-env NODE_ENV=test jest --coverage",
-    "test:debug": "cross-env NODE_ENV=test node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "cross-env NODE_ENV=test jest --config ./test/jest-e2e.json"
+    "test:debug": "cross-env NODE_ENV=test node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
   },
   "dependencies": {
     "@nestjs/axios": "^2.0.0",
