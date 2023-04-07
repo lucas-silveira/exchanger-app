@@ -13,6 +13,16 @@ export class CurrenciesRESTfulController {
     public readonly appCurrencyService: App.Services.AppCurrencyService,
   ) {}
 
+  @Nest.Post()
+  public async createCurrency(
+    @Nest.Body() dto: App.DTOs.RequestCreateCurrencyDto,
+  ): Promise<App.DTOs.ResponseCurrencyDto> {
+    this.logger.log(
+      new Log(`API request received to create a new currency`, { dto }),
+    );
+    return await this.appCurrencyService.createCurrency(dto);
+  }
+
   @Nest.Post('exchange')
   public async exchange(
     @Nest.Body() dto: App.DTOs.RequestExchangeDto,

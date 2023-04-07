@@ -30,12 +30,12 @@ Tests.serviceScope('AppCurrencyService', () => {
       const dto = {
         isoCode: CurrencyId.CAD,
         name: 'Dólar Canadense',
-        usdRate: 1.34,
+        usdRate: 0.74,
       };
       const expectedResponse = {
         isoCode: 'CAD',
         name: 'Dólar Canadense',
-        usdRate: 1.34,
+        usdRate: 0.74,
       };
       await expect(appCurrencyService.createCurrency(dto)).resolves.toEqual(
         expectedResponse,
