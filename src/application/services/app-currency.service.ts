@@ -16,6 +16,37 @@ export class AppCurrencyService {
     private readonly currencyExchangerService: Ports.ICurrencyExchangerService,
   ) {}
 
+  public async createCurrency(
+    dto: DTOs.RequestCreateCurrencyDto,
+  ): Promise<DTOs.ResponseCurrencyDto> {
+    try {
+      const currencyExists = await this.currenciesRepo.exists(dto.isoCode);
+      if (currencyExists)
+        throw new Nest.BadRequestException(
+          `The currency ${dto.isoCode} already exists.`,
+        );
+
+      const currency = new Currency(dto.isoCode, dto.name, dto.usdRate);
+      await this.currenciesRepo.save(currency);
+
+      return new DTOs.ResponseCurrencyDto(
+        currency.isoCode,
+        currency.name,
+        currency.usdRate,
+      );
+    } catch (err) {
+      this.logger.error(
+        new ErrorLog(err, `Error while creating currency`, { dto }),
+      );
+
+      if (err instanceof Nest.HttpException) throw err;
+
+      throw new Nest.InternalServerErrorException(
+        `Error while creating currency`,
+      );
+    }
+  }
+
   public async exchange(
     dto: DTOs.RequestExchangeDto,
   ): Promise<DTOs.ResponseMoneyDto[]> {
