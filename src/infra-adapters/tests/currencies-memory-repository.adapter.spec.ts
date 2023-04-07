@@ -12,7 +12,7 @@ Tests.serviceScope('CurrenciesMemoryRepository', () => {
   it('Should be able to save a new Currency', async () => {
     await expect(
       currenciesMemRepo.save(
-        new Currency(CurrencyId.CAD, 'Dólar Canadense', 1.34),
+        new Currency(CurrencyId.CAD, 'Dólar Canadense', 0.74),
       ),
     ).resolves.not.toThrow();
   });
@@ -57,7 +57,7 @@ Tests.serviceScope('CurrenciesMemoryRepository', () => {
   });
 
   it('Should be able to save a Currency twice', async () => {
-    const cadCurrency = new Currency(CurrencyId.CAD, 'Dólar Canadense', 1.34);
+    const cadCurrency = new Currency(CurrencyId.CAD, 'Dólar Canadense', 0.74);
     await currenciesMemRepo.save(cadCurrency);
     let savedCADCurrency = (await currenciesMemRepo.findAll()).find((curr) =>
       curr.isEqualTo(cadCurrency),
