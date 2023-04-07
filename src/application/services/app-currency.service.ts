@@ -16,7 +16,9 @@ export class AppCurrencyService {
     private readonly currencyExchangerService: Ports.ICurrencyExchangerService,
   ) {}
 
-  public async exchange(dto: DTOs.RequestExchangeDto): Promise<any> {
+  public async exchange(
+    dto: DTOs.RequestExchangeDto,
+  ): Promise<DTOs.ResponseMoneyDto[]> {
     try {
       const money = new Money(dto.source, dto.amount);
       const allCurrencies = await this.currenciesRepo.findAll();
@@ -32,7 +34,7 @@ export class AppCurrencyService {
       return this.makeMoneyDtoList(moneyList);
     } catch (err) {
       this.logger.error(
-        new ErrorLog(err, `Error while exchanging currencies`, {}),
+        new ErrorLog(err, `Error while exchanging currencies`, { dto }),
       );
 
       if (err instanceof Nest.HttpException) throw err;

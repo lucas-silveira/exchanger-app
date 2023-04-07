@@ -16,9 +16,9 @@ export class CurrenciesRESTfulController {
   @Nest.Post('exchange')
   public async exchange(
     @Nest.Body() dto: App.DTOs.RequestExchangeDto,
-  ): Promise<App.DTOs.ResponseMoneyDto> {
+  ): Promise<App.DTOs.ResponseMoneyDto[]> {
     this.logger.log(
-      new Log(`API request received to exchange currencies`, dto),
+      new Log(`API request received to exchange currencies`, { dto }),
     );
     return await this.appCurrencyService.exchange(dto);
   }
