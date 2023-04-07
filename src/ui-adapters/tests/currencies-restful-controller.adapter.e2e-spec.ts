@@ -28,20 +28,44 @@ Tests.e2eScope('CurrenciesRESTfulController', () => {
     await app.close();
   });
 
-  it('/POST currencies/exchange', () => {
-    const dto = {
-      source: 'BRL',
-      amount: 10,
-    };
-    const expectedResponse = [
-      { currency: 'USD', value: 1.9 },
-      { currency: 'ARS', value: 380 },
-      { currency: 'PEN', value: 7.04 },
-    ];
-    return request(app.getHttpServer())
-      .post('/currencies/exchange')
-      .send(dto)
-      .expect(201)
-      .expect(expectedResponse);
+  describe('/POST currencies/exchange', () => {
+    it('Should be able to exchange a BRL value to multiple currencies', () => {
+      const dto = {
+        source: 'BRL',
+        amount: 10,
+      };
+      const expectedResponse = [
+        { currency: 'USD', value: 1.9 },
+        { currency: 'ARS', value: 380 },
+        { currency: 'PEN', value: 7.04 },
+      ];
+      return request(app.getHttpServer())
+        .post('/currencies/exchange')
+        .send(dto)
+        .expect(201)
+        .expect(expectedResponse);
+    });
+
+    it('Should be able to throw a BadRequestException if the payload is invalid', () => {
+      const dto = {
+        source: 'BRxx',
+        amount: 10,
+      };
+      return request(app.getHttpServer())
+        .post('/currencies/exchange')
+        .send(dto)
+        .expect(400);
+    });
+
+    it('Should be able to throw any internal HttpException', () => {
+      const dto = {
+        source: 'CAD', // Although CAD is a valid currency code, there is no CAD Currency saved
+        amount: 10,
+      };
+      return request(app.getHttpServer())
+        .post('/currencies/exchange')
+        .send(dto)
+        .expect(400);
+    });
   });
 });
