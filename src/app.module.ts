@@ -15,6 +15,7 @@ export class AppModule {
       isGlobal: true,
       load: [makeConfigAndValidate],
     }),
+    NestAddons.AuthModule.register(),
   ];
 
   public static controllers: Nest.Type[] = [

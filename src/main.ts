@@ -31,6 +31,7 @@ function configOpenApi(app: Nest.INestApplication): void {
     .setTitle('Exchanger API')
     .setDescription('The Exchanger API description')
     .setVersion('1.0')
+    .addBasicAuth()
     .build();
   const document = SwaggerModule.createDocument(app, docConf);
   SwaggerModule.setup('api', app, document);
