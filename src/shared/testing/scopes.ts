@@ -1,5 +1,5 @@
 /*
-  The three test scopes is based on Mike Cohn's Test Pyramid,
+  The four test scopes is based on Mike Cohn's Test Pyramid,
   which you can get more details here:
   https://martinfowler.com/articles/practical-test-pyramid.html
 */

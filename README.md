@@ -5,7 +5,7 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+  <p align="center">This project was developed with <a href="https://github.com/nestjs/nest" target="_blank">Nest.js</a>, a progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
     <p align="center">
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
@@ -23,17 +23,16 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Exchanger App project brings the basic behavior to exchange an source amount to multiple target currencies.
 
 ## Installation
-
+- Install the project dependencies:
 ```bash
-$ yarn install
+$ yarn # or npm install
 ```
+- Create files `.env.test` and `.env.development` (check `.env.example` to guidance).
 
 ## Running the app
-
 ```bash
 # development
 $ yarn run start
@@ -46,9 +45,18 @@ $ yarn run start:prod
 ```
 
 ## Test
+The tests in this projects is based on [Mike Cohn's Test Pyramid](https://martinfowler.com/articles/practical-test-pyramid.html), which specifies three test scopes:
+- `unit`
+- `service`
+- `e2e`
 
+We've added one more scope called `io` for tests that cover external connections (like databases and web-services).
+
+Besides we're using two different *transpilers* to run the tests:
+- **esbuild**: for `unit`, `service` and `io` tests.
+- **ts-jest**: for `e2e` tests.
 ```bash
-# unit tests
+# unit, service and io tests
 $ yarn run test
 
 # e2e tests
@@ -58,16 +66,17 @@ $ yarn run test:e2e
 $ yarn run test:cov
 ```
 
-## Support
+## Documentation
+This project uses OpenAPI specification to document the API endpoints. To check the documention page, start the application and open `/api` endpoint in the browser.
 
+## IDE Extensions
+We strongly recommend to use of VS Code IDE to work with this project, since we have a lot of extensions ready to use.
+
+### Eslint
+We are using the **Eslint** library to statically analyze and avoid syntax errors on code. So, you need to install the **VSCode Eslint extension** to use it. Also, we have the npm script `npm run lint` to carry out the lint on our entire code base and fix any syntax issues.
+
+## Support
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
 ## License
-
 Nest is [MIT licensed](LICENSE).
