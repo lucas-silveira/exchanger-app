@@ -15,6 +15,11 @@ export class CurrenciesMemoryRepository implements Ports.ICurrenciesRepository {
     if (!this.currencies.has(currency.isoCode))
       this.currencies.set(currency.isoCode, currency);
   }
+
+  public async exists(isoCode: CurrencyId): Promise<boolean> {
+    return !!this.currencies.has(isoCode);
+  }
+
   public async findAll(): Promise<Currency[]> {
     return Array.from(this.currencies, ([, value]) => value);
   }

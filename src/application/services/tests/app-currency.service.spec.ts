@@ -12,6 +12,7 @@ Tests.serviceScope('AppCurrencyService', () => {
   beforeAll(() => {
     currenciesRepo = {
       save: jest.fn(),
+      exists: jest.fn(),
       findAll: jest.fn(),
     };
     currencyExchangerService = {

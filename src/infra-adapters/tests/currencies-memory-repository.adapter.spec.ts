@@ -17,6 +17,14 @@ Tests.serviceScope('CurrenciesMemoryRepository', () => {
     ).resolves.not.toThrow();
   });
 
+  it('Should be able to get true if a Currency exists', async () => {
+    await expect(currenciesMemRepo.exists(CurrencyId.BRL)).resolves.toBe(true);
+  });
+
+  it('Should be able to get false if a Currency not exists', async () => {
+    await expect(currenciesMemRepo.exists(CurrencyId.CAD)).resolves.toBe(false);
+  });
+
   it('Should be able to get a list of Currency when findAll is called', async () => {
     const currenciesList = await currenciesMemRepo.findAll();
     expect(currenciesList).toBeInstanceOf(Array);
