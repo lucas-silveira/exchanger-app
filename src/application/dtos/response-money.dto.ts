@@ -5,6 +5,6 @@ export class ResponseMoneyDto {
   public readonly value: number;
 
   constructor(currency: CurrencyId, value: number) {
-    Object.assign(this, currency, value);
+    Object.assign(this, { currency, value });
   }
 }
