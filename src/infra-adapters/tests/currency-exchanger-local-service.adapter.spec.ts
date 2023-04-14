@@ -10,7 +10,7 @@ import {
 } from '@domain';
 import { CurrencyExchangerLocalService } from '../currency-exchanger-local-service.adapter';
 
-Tests.serviceScope('CurrencyExchangerLocalService', () => {
+Tests.unitScope('CurrencyExchangerLocalService', () => {
   let currencyExchangerLocalService: CurrencyExchangerLocalService;
 
   beforeAll(() => {

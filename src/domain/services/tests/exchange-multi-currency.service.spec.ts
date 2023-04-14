@@ -7,7 +7,7 @@ import { Money } from '@domain/money.vo';
 import { ExchangeCurrencyService } from '../exchange-currency.service';
 import { ExchangeMultiCurrencyService } from '../exchange-multi-currency.service';
 
-Tests.serviceScope('ExchangeMultiCurrencyService', () => {
+Tests.unitScope('ExchangeMultiCurrencyService', () => {
   let exchangeMultiCurrencyService: ExchangeMultiCurrencyService;
 
   beforeAll(() => {

@@ -6,7 +6,7 @@ import { Currency } from '@domain/currency.entity';
 import { Money } from '@domain/money.vo';
 import { ExchangeCurrencyService } from '../exchange-currency.service';
 
-Tests.serviceScope('ExchangeCurrencyService', () => {
+Tests.unitScope('ExchangeCurrencyService', () => {
   let exchangeCurrencyService: ExchangeCurrencyService;
 
   beforeAll(() => {

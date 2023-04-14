@@ -4,7 +4,7 @@ import { Currency, CurrencyId, Money } from '@domain';
 import { DTOs, Ports } from '@application';
 import { AppCurrencyService } from '../app-currency.service';
 
-Tests.serviceScope('AppCurrencyService', () => {
+Tests.unitScope('AppCurrencyService', () => {
   let currenciesRepo: Ports.ICurrenciesRepository;
   let currencyExchangerService: Ports.ICurrencyExchangerService;
   let appCurrencyService: AppCurrencyService;

@@ -2,7 +2,7 @@ import * as Tests from '@shared/testing';
 import { Currency, CurrencyId } from '@domain';
 import { CurrenciesMemoryRepository } from '../currencies-memory-repository.adapter';
 
-Tests.serviceScope('CurrenciesMemoryRepository', () => {
+Tests.unitScope('CurrenciesMemoryRepository', () => {
   let currenciesMemRepo: CurrenciesMemoryRepository;
 
   beforeEach(() => {

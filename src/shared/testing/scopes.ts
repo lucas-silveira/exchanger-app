@@ -1,14 +1,13 @@
 /*
-  The four test scopes is based on Mike Cohn's Test Pyramid,
+  The three test scopes is based on Mike Cohn's Test Pyramid,
   which you can get more details here:
   https://martinfowler.com/articles/practical-test-pyramid.html
 */
 
 enum TestScope {
   Unit = 'unit',
-  Service = 'service',
+  Integration = 'integration',
   E2E = 'e2e',
-  IO = 'io',
 }
 
 const envHasTheScope = (scope: TestScope): boolean => {
@@ -21,12 +20,10 @@ export const unitScope = envHasTheScope(TestScope.Unit)
   ? describe
   : describe.skip;
 
-export const serviceScope = envHasTheScope(TestScope.Service)
+export const integrationScope = envHasTheScope(TestScope.Integration)
   ? describe
   : describe.skip;
 
 export const e2eScope = envHasTheScope(TestScope.E2E)
   ? describe
   : describe.skip;
-
-export const ioScope = envHasTheScope(TestScope.IO) ? describe : describe.skip;
